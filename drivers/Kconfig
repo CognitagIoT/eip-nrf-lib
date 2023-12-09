@@ -1,0 +1,19 @@
+#
+# Copyright (c) 2018-2020 Nordic Semiconductor ASA
+#
+# SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+#
+
+menu "Device Drivers"
+
+rsource "bluetooth/Kconfig"
+rsource "entropy/Kconfig"
+rsource "serial/Kconfig"
+
+rsource "wifi/Kconfig"
+
+if MPSL
+rsource "mpsl/Kconfig"
+endif
+
+endmenu

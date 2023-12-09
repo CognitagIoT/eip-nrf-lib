@@ -1,0 +1,15 @@
+
+manifest:
+  defaults:
+    remote: nrfconnect
+
+  remotes:
+    - name: nrfconnect
+      url-base: https://github.com/nrfconnect
+  projects:
+    - name: sdk-nrfxlib
+      path: modules/lib/sdk-nrfxlib
+      revision: v2.5.0
+    - name: sdk-hostap
+      path: modules/lib/hostap
+      revision: d82c309c2e7eea5f08bbc1ac9e2f4c4622fbe998

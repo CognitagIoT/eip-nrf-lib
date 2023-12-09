@@ -1,0 +1,4 @@
+
+rsource "bluetooth/Kconfig"
+
+rsource "mpsl/Kconfig"

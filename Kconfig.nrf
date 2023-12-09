@@ -1,0 +1,28 @@
+#
+# Copyright (c) 2018 Nordic Semiconductor
+#
+# SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+#
+
+menu "Nordic nRF Connect"
+
+rsource "drivers/Kconfig"
+rsource "lib/Kconfig"
+rsource "subsys/Kconfig"
+
+# Symbols normally defined by Nordics Zephyr fork and referenced by sdk-nrfxlib
+config PSA_WANT_ALG_CTR_DRBG
+	bool
+	prompt "PSA RNG using CTR_DRBG"
+	help
+	  Provide CTR_DRBG as the random number generator.
+	  Note: This configuration is currently not described and has no effect.
+
+config PSA_WANT_ALG_HMAC_DRBG
+	bool
+	prompt "PSA RNG using HMAC_DRBG"
+	help
+	  Provide HMAC_DRBG as the random number generator.
+	  Note: This configuration is currently not described and has no effect.
+
+endmenu
