@@ -8,6 +8,7 @@ menu "Nordic nRF Connect"
 
 rsource "drivers/Kconfig"
 rsource "lib/Kconfig"
+rsource "modules/Kconfig"
 rsource "subsys/Kconfig"
 
 # Symbols normally defined by Nordics Zephyr fork and referenced by sdk-nrfxlib
