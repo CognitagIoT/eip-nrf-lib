@@ -260,7 +260,7 @@ void nrf_wifi_event_proc_disp_scan_res_zep(void *vif_ctx,
 	struct nrf_wifi_vif_ctx_zep *vif_ctx_zep = NULL;
 	struct umac_display_results *r = NULL;
 	struct wifi_scan_result res;
-	uint16_t max_bss_cnt = 0;
+	uint16_t max_bss_cnt;
 	unsigned int i = 0;
 	scan_result_cb_t cb = NULL;
 
@@ -268,13 +268,11 @@ void nrf_wifi_event_proc_disp_scan_res_zep(void *vif_ctx,
 
 	cb = (scan_result_cb_t)vif_ctx_zep->disp_scan_cb;
 
-	max_bss_cnt = vif_ctx_zep->max_bss_cnt ?
-		vif_ctx_zep->max_bss_cnt : CONFIG_WIFI_MGMT_SCAN_SSID_FILT_MAX;
+	max_bss_cnt = vif_ctx_zep->max_bss_cnt ? vif_ctx_zep->max_bss_cnt : UINT16_MAX;
 
 	for (i = 0; i < scan_res->event_bss_count; i++) {
 		/* Limit the scan results to the configured maximum */
-		if ((max_bss_cnt > 0) &&
-		    (vif_ctx_zep->scan_res_cnt >= max_bss_cnt)) {
+		if (vif_ctx_zep->scan_res_cnt >= max_bss_cnt) {
 			break;
 		}
 
