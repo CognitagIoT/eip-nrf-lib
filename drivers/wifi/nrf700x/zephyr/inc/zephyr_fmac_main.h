@@ -30,7 +30,7 @@
 #include <fmac_api.h>
 #include <host_rpu_umac_if.h>
 
-#define NRF700X_DRIVER_VERSION "1.5.0"
+#define NRF700X_DRIVER_VERSION "1.5.1"
 
 #ifndef CONFIG_NRF700X_RADIO_TEST
 /* Use same timeout as WPA supplicant, this is high mainly to handle
