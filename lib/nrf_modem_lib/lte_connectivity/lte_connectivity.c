@@ -19,14 +19,6 @@
 
 LOG_MODULE_REGISTER(lte_connectivity, CONFIG_LTE_CONNECTIVITY_LOG_LEVEL);
 
-/* This library requires that Zephyr's IPv4 and IPv6 stacks are enabled.
- *
- * The modem supports both IPv6 and IPv4. At any time, either IP families can be given by
- * the network, independently of each other. Because of this we require that the corresponding
- * IP stacks are enabled in Zephyr NET in order to add and remove both IP family address types
- * to and from the network interface.
- */
-BUILD_ASSERT(IS_ENABLED(CONFIG_NET_IPV6) && IS_ENABLED(CONFIG_NET_IPV4), "IPv6 and IPv4 required");
 
 BUILD_ASSERT((CONFIG_NET_CONNECTION_MANAGER_MONITOR_STACK_SIZE >= 1024),
 	     "Stack size of the connection manager internal thread is too low. "
@@ -243,16 +235,19 @@ static void on_pdn_deactivated(void)
 		return;
 	}
 
+#if CONFIG_NET_IPV6
 	ret = lte_ipv6_addr_remove(iface_bound);
 	if (ret) {
 		LOG_ERR("ipv6_addr_remove, error: %d", ret);
 		fatal_error_notify_and_disconnect();
 		return;
 	}
+#endif
 
 	update_has_pdn(false);
 }
 
+#if CONFIG_NET_IPV6
 static void on_pdn_ipv6_up(void)
 {
 	int ret;
@@ -276,6 +271,7 @@ static void on_pdn_ipv6_down(void)
 		return;
 	}
 }
+#endif
 
 /* Event handlers */
 static void pdn_event_handler(uint8_t cid, enum pdn_event event, int reason)
@@ -297,6 +293,7 @@ static void pdn_event_handler(uint8_t cid, enum pdn_event event, int reason)
 		LOG_DBG("PDN connection deactivated");
 		on_pdn_deactivated();
 		break;
+#if CONFIG_NET_IPV6
 	case PDN_EVENT_IPV6_UP:
 		LOG_DBG("PDN IPv6 up");
 		on_pdn_ipv6_up();
@@ -305,6 +302,7 @@ static void pdn_event_handler(uint8_t cid, enum pdn_event event, int reason)
 		LOG_DBG("PDN IPv6 down");
 		on_pdn_ipv6_down();
 		break;
+#endif
 	default:
 		LOG_ERR("Unexpected PDN event: %d", event);
 		break;

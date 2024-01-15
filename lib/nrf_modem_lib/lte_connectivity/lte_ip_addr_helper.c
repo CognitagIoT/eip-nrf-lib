@@ -23,9 +23,13 @@ LOG_MODULE_REGISTER(ip_addr_helper, CONFIG_LTE_CONNECTIVITY_LOG_LEVEL);
 /* Structure that keeps track of the current IP addresses in use. */
 static struct ip_addr_helper_data {
 	struct in_addr ipv4_addr_current;
+#if CONFIG_NET_IPV6
 	struct in6_addr ipv6_addr_current;
+#endif
 	bool ipv4_added;
+#if CONFIG_NET_IPV6
 	bool ipv6_added;
+#endif
 } ctx;
 
 /* @brief Function that obtains either the IPv4 or IPv6 address associated with
@@ -114,6 +118,7 @@ int lte_ipv4_addr_add(const struct net_if *iface)
 	return 0;
 }
 
+#if CONFIG_NET_IPV6
 int lte_ipv6_addr_add(const struct net_if *iface)
 {
 	int len;
@@ -147,6 +152,7 @@ int lte_ipv6_addr_add(const struct net_if *iface)
 
 	return 0;
 }
+#endif
 
 int lte_ipv4_addr_remove(const struct net_if *iface)
 {
@@ -168,6 +174,7 @@ int lte_ipv4_addr_remove(const struct net_if *iface)
 	return 0;
 }
 
+#if CONFIG_NET_IPV6
 int lte_ipv6_addr_remove(const struct net_if *iface)
 {
 	if (iface == NULL) {
@@ -187,3 +194,4 @@ int lte_ipv6_addr_remove(const struct net_if *iface)
 
 	return 0;
 }
+#endif
