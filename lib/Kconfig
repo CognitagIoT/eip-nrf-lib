@@ -13,5 +13,6 @@ rsource "lte_link_control/Kconfig"
 rsource "multithreading_lock/Kconfig"
 rsource "nrf_modem_lib/Kconfig"
 rsource "modem_key_mgmt/Kconfig"
+rsource "pdn/Kconfig"
 
 endmenu
