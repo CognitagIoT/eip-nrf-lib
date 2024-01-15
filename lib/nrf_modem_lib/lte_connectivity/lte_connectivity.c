@@ -63,12 +63,14 @@ static void fatal_error_notify_and_disconnect(void)
 	(void)lte_connectivity_disconnect(NULL);
 }
 
+#if CONFIG_NRF_MODEM_LIB_ON_FAULT_LTE_CONNECTIVITY
 /* Handler called on modem faults. */
 void nrf_modem_fault_handler(struct nrf_modem_fault_info *fault_info)
 {
 	LOG_ERR("Modem error: 0x%x, PC: 0x%x", fault_info->reason, fault_info->program_counter);
 	fatal_error_notify_and_disconnect();
 }
+#endif
 
 /* Called when we detect LTE connectivity has been gained.
  *

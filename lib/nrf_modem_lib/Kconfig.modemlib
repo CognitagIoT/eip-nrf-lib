@@ -220,6 +220,7 @@ endif # NRF_MODEM_LIB_TRACE
 
 choice NRF_MODEM_LIB_ON_FAULT
 	prompt "Action on modem fault"
+	default NRF_MODEM_LIB_ON_FAULT_LTE_CONNECTIVITY if LTE_CONNECTIVITY
 	default NRF_MODEM_LIB_ON_FAULT_DO_NOTHING
 
 config NRF_MODEM_LIB_ON_FAULT_DO_NOTHING
@@ -231,6 +232,11 @@ config NRF_MODEM_LIB_ON_FAULT_RESET_MODEM
 	bool "Reset modem"
 	help
 	  Let the fault handler reset the modem.
+
+config NRF_MODEM_LIB_ON_FAULT_LTE_CONNECTIVITY
+	bool "lte_connectivity handler"
+	help
+	  Use the LTE connectivity library handler
 
 config NRF_MODEM_LIB_ON_FAULT_APPLICATION_SPECIFIC
 	bool "Application defined"
