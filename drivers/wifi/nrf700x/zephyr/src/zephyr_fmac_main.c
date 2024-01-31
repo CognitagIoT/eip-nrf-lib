@@ -17,6 +17,7 @@
 #endif
 #include <zephyr/logging/log.h>
 #include <zephyr/net/wifi_mgmt.h>
+#include <zephyr/net/conn_mgr/connectivity_wifi_mgmt.h>
 #include <net/l2_wifi_connect.h>
 
 
@@ -805,3 +806,5 @@ DEVICE_DEFINE(wlan0, /* name - token */
 #ifdef CONFIG_L2_WIFI_CONNECTIVITY
 CONN_MGR_BIND_CONN(wlan0, L2_CONN_WLAN0);
 #endif /* CONFIG_L2_WIFI_CONNECTIVITY */
+
+CONNECTIVITY_WIFI_MGMT_BIND(wlan0);
