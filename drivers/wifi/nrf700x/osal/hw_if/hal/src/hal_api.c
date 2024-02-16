@@ -1550,7 +1550,7 @@ enum nrf_wifi_status nrf_wifi_hal_fw_chk_boot(struct nrf_wifi_hal_dev_ctx *hal_d
 				      rpu_proc);
 	}
 
-	while (i < 1000) {
+	while (i < 100) {
 		status = hal_rpu_mem_read(hal_dev_ctx,
 					  (unsigned char *)&val,
 					  addr,
@@ -1575,7 +1575,7 @@ enum nrf_wifi_status nrf_wifi_hal_fw_chk_boot(struct nrf_wifi_hal_dev_ctx *hal_d
 
 	};
 
-	if (i == 1000) {
+	if (i == 100) {
 		nrf_wifi_osal_log_err(hal_dev_ctx->hpriv->opriv,
 				      "%s: Boot_sig check failed for RPU(%d), "
 				      "Expected: 0x%X, Actual: 0x%X\n",
