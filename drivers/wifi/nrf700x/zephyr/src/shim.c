@@ -597,12 +597,14 @@ static void *zep_shim_bus_qspi_dev_add(void *os_qspi_priv, void *osal_qspi_dev_c
 
 static void zep_shim_bus_qspi_dev_rem(void *os_qspi_dev_ctx)
 {
-	struct qspi_dev *dev = NULL;
-
-	dev = os_qspi_dev_ctx;
+	struct qspi_dev *qdev = qspi_dev();
 
 	/* TODO: Make qspi_dev a dynamic instance and remove it here */
 	rpu_disable();
+
+	if (qdev->deinit) {
+		(void)qdev->deinit();
+	}
 }
 
 static void *zep_shim_bus_qspi_init(void)

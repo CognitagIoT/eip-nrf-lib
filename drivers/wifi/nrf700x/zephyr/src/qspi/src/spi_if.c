@@ -13,6 +13,7 @@
 
 #include <zephyr/drivers/spi.h>
 #include <zephyr/logging/log.h>
+#include <zephyr/pm/device_runtime.h>
 
 #include "qspi_if.h"
 #include "spi_if.h"
@@ -230,7 +231,14 @@ int spim_init(struct qspi_config *config)
 		spi_spec.config.frequency / MHZ(1));
 	LOG_INF("SPIM %s: latency = %d", spi_spec.bus->name, spim_config->qspi_slave_latency);
 
-	return 0;
+	/* Power up SPI bus */
+	return pm_device_runtime_get(spi_spec.bus);
+}
+
+int spim_deinit(void)
+{
+	/* Power down SPI bus */
+	return pm_device_runtime_put(spi_spec.bus);
 }
 
 static void spim_addr_check(unsigned int addr, const void *data, unsigned int len)
