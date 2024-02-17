@@ -27,6 +27,7 @@ static struct qspi_dev qspi = { .init = qspi_init,
 			 .hl_read = qspi_hl_read};
 #else
 static struct qspi_dev spim = { .init = spim_init,
+			 .deinit = spim_deinit,
 			 .read = spim_read,
 			 .write = spim_write,
 			 .hl_read = spim_hl_read};
